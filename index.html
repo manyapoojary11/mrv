@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Online Voting System</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: white;
+      text-align: center;
+    }
+    nav {
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+    }
+    nav button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .page {
+      display: none;
+      padding: 30px;
+    }
+    .active {
+      display: block;
+    }
+    .card {
+      background: white;
+      color: black;
+      padding: 15px;
+      margin: 10px auto;
+      width: 220px;
+      border-radius: 10px;
+    }
+    button.vote {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Online Voting System</h1>
+<p>Empowering voters through digital voting. </p>
+
+<nav>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('candidates')">Candidates</button>
+  <button onclick="showPage('vote')">Vote</button>
+  <button onclick="showPage('result')">Result</button>
+</nav>
+
+<div id="home" class="page active">
+  <h2>Welcome</h2>
+  <p>A single vote can make a big difference</p>
+</div>
+
+<div id="candidates" class="page">
+  <h2>Candidates</h2>
+  <div class="card">Candidate A - Manya</div>
+  <div class="card">Candidate B - Rashmitha</div>
+  <div class="card">Candidate C - Varsha</div>
+  <div class="card">Candidate D - Ashika</div>
+</div>
+
+<div id="vote" class="page">
+  <h2>Vote Here</h2>
+  <button class="vote" onclick="vote('A')">Vote A</button>
+  <button class="vote" onclick="vote('B')">Vote B</button>
+  <button class="vote" onclick="vote('C')">Vote C</button>
+  <button class="vote" onclick="vote('D')">Vote D</button>
+  <p id="msg"></p>
+</div>
+
+<div id="result" class="page">
+  <h2>Result</h2>
+  <p id="resultText">No vote yet</p>
+</div>
+
+<script>
+  let userVote = null;
+
+  function showPage(pageId) {
+    let pages = document.getElementsByClassName("page");
+    for (let i = 0; i < pages.length; i++) {
+      pages[i].classList.remove("active");
+    }
+    document.getElementById(pageId).classList.add("active");
+
+    if (pageId === "result") {
+      showResult();
+    }
+  }
+
+  function vote(candidate) {
+    if (userVote !== null) {
+      document.getElementById("msg").innerText = "You already voted!";
+      return;
+    }
+    userVote = candidate;
+    document.getElementById("msg").innerText =
+      "You voted for Candidate " + candidate;
+  }
+
+  function showResult() {
+    if (userVote) {
+      document.getElementById("resultText").innerText =
+        "Your vote: Candidate " + userVote;
+    } else {
+      document.getElementById("resultText").innerText =
+        "No vote recorded!";
+    }
+  }
+</script>
+
+</body>
+</html>
